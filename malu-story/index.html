@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brasil Fan Store - Seleção Oficial 🇧🇷</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; background: #f8f9fa; overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 900; letter-spacing: -1px; }
+
+        .gradient-brasil {
+            background: linear-gradient(135deg, #ffd700 0%, #228b22 55%, #0047ab 100%);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(34, 139, 34, 0.2);
+        }
+
+        .gradient-brasil::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: float 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+        }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        .animate-in { animation: slideUpFade 0.8s ease-out; }
+        .animate-scale { animation: scaleIn 0.6s ease-out; }
+
+        .card-premium {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid #f0f0f0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-premium:hover {
+            transform: translateY(-16px);
+            box-shadow: 0 20px 50px rgba(34, 139, 34, 0.15);
+            border-color: #ffd700;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #228b22 0%, #1a6b1a 100%);
+            color: white;
+            padding: 14px 36px;
+            border-radius: 12px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 20px rgba(34, 139, 34, 0.3);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.25);
+            transition: left 0.4s ease;
+            border-radius: 12px;
+        }
+
+        .btn-primary:hover::before { left: 100%; }
+        .btn-primary:hover { 
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(34, 139, 34, 0.4);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transform: rotate(15deg);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .shimmer-text {
+            background: linear-gradient(90deg, #ffd700, #228b22, #ffd700);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s infinite;
+        }
+
+        .stagger {
+            opacity: 0;
+            animation: slideUpFade 0.8s ease-out forwards;
+        }
+
+        .stagger:nth-child(1) { animation-delay: 0.1s; }
+        .stagger:nth-child(2) { animation-delay: 0.2s; }
+        .stagger:nth-child(3) { animation-delay: 0.3s; }
+
+        .accent-line {
+            height: 6px;
+            background: linear-gradient(90deg, #ffd700 0%, #228b22 50%, transparent 100%);
+            width: 80px;
+            margin: 16px 0;
+            border-radius: 3px;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+        }
+
+        .price-tag {
+            font-weight: 700;
+            color: #228b22;
+            font-size: 28px;
+        }
+
+        .step-indicator {
+            display: flex;
+            gap: 8px;
+            margin: 32px 0;
+        }
+
+        .step {
+            height: 4px;
+            flex: 1;
+            background: #e0e0e0;
+            border-radius: 2px;
+            transition: all 0.4s ease;
+        }
+
+        .step.active {
+            background: linear-gradient(90deg, #ffd700 0%, #228b22 100%);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        }
+
+        .input-premium {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e8e8e8;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .input-premium:focus {
+            outline: none;
+            border-color: #228b22;
+            box-shadow: 0 0 0 4px rgba(34, 139, 34, 0.1);
+            background: #f9fdf7;
+        }
+
+        .product-image {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            object-fit: cover;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+            transition: all 0.3s ease;
+        }
+
+        .product-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes slideDrawerIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDrawerOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        .drawer-slide {
+            animation: slideDrawerIn 0.4s ease-out forwards;
+        }
+
+        .drawer-close {
+            animation: slideDrawerOut 0.4s ease-out forwards;
+        }
+
+        .drawer-backdrop {
+            animation: slideUpFade 0.3s ease-out forwards;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes modalScaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.85) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes modalScaleOut {
+            from {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0.85) translateY(20px);
+            }
+        }
+
+        .modal-backdrop {
+            animation: modalFadeIn 0.3s ease-out forwards;
+        }
+
+        .modal-content {
+            animation: modalScaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .modal-content.closing {
+            animation: modalScaleOut 0.3s ease-in forwards;
+        }
+
+        .modal-error {
+            background: linear-gradient(135deg, #fef2f2 0%, #fff5f5 100%);
+        }
+
+        .modal-success {
+            background: linear-gradient(135deg, #f0fdf4 0%, #f7fee7 100%);
+        }
+
+        .modal-info {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+
+        .modal-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .modal-icon.error {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .modal-icon.success {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .modal-icon.info {
+            background: #cffafe;
+            color: #0ea5e9;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 28px; }
+            h2 { font-size: 20px; }
+            h3 { font-size: 18px; }
+            h4 { font-size: 16px; }
+            p { font-size: 14px; }
+            
+            .card-premium { 
+                padding: 12px; 
+                border-radius: 12px;
+                margin-bottom: 8px;
+            }
+            
+            .card-premium:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            }
+            
+            .btn-primary {
+                padding: 12px 24px;
+                font-size: 14px;
+                min-height: 44px;
+            }
+            
+            .price-tag {
+                font-size: 22px;
+            }
+            
+            .accent-line {
+                width: 60px;
+            }
+            
+            .product-badge {
+                padding: 8px 12px;
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body { font-size: 13px; }
+            h1 { font-size: 24px; }
+            h2 { font-size: 18px; }
+            h3 { font-size: 16px; }
+            
+            .drawer-slide {
+                width: 100vw !important;
+            }
+            
+            .price-tag {
+                font-size: 20px;
+            }
+            
+        .hero-section {
+            min-height: 300px;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(34,139,34,0.3) 50%, rgba(0,71,171,0.4) 100%);
+            z-index: 5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes heroImageFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-image-container {
+            animation: heroImageFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .hero-glow {
+            animation: glow 3s ease-in-out infinite;
+        }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // Componente Modal Reutilizável
+        const Modal = ({ isOpen, tipo = 'info', titulo, mensagem, onClose, botao = 'Fechar' }) => {
+            const [isClosing, setIsClosing] = useState(false);
+
+            React.useEffect(() => {
+                if (isOpen && tipo === 'success') {
+                    const timer = setTimeout(() => {
+                        handleClose();
+                    }, 3000);
+                    return () => clearTimeout(timer);
+                }
+            }, [isOpen, tipo]);
+
+            const handleClose = () => {
+                setIsClosing(true);
+                setTimeout(() => {
+                    setIsClosing(false);
+                    onClose();
+                }, 300);
+            };
+
+            if (!isOpen && !isClosing) return null;
+
+            const tipoConfig = {
+                error: { icon: '⚠️', color: 'error', textColor: 'text-red-700', titulo: titulo || 'Opa! Algo deu errado' },
+                success: { icon: '✅', color: 'success', textColor: 'text-green-700', titulo: titulo || 'Sucesso!' },
+                info: { icon: 'ℹ️', color: 'info', textColor: 'text-blue-700', titulo: titulo || 'Informação' }
+            };
+
+            const config = tipoConfig[tipo];
+
+            return (
+                <>
+                    <div 
+                        className="fixed inset-0 bg-black bg-opacity-50 z-40 modal-backdrop"
+                        onClick={handleClose}
+                    ></div>
+                    
+                    <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
+                        <div className={`modal-content ${isClosing ? 'closing' : ''} modal-${tipo} card-premium w-full max-w-md mx-auto`}>
+                            {/* Ícone */}
+                            <div className="flex justify-center mb-4">
+                                <div className={`modal-icon ${config.color}`}>
+                                    {config.icon}
+                                </div>
+                            </div>
+
+                            {/* Título */}
+                            <h2 className={`text-2xl font-black text-center mb-3 ${config.textColor}`}>
+                                {config.titulo}
+                            </h2>
+
+                            {/* Mensagem */}
+                            <p className="text-gray-700 text-center mb-8 leading-relaxed">
+                                {mensagem}
+                            </p>
+
+                            {/* Botão */}
+                            <button
+                                onClick={handleClose}
+                                className={`w-full py-3 rounded-lg font-bold transition-all text-base ${
+                                    tipo === 'error'
+                                        ? 'bg-red-600 hover:bg-red-700 text-white'
+                                        : tipo === 'success'
+                                        ? 'bg-green-600 hover:bg-green-700 text-white'
+                                        : 'bg-blue-600 hover:bg-blue-700 text-white'
+                                }`}
+                            >
+                                {botao}
+                            </button>
+                        </div>
+                    </div>
+                </>
+            );
+        };
+
+        // Componente QRCode
+        const QRCodeComponent = ({ pixCode }) => {
+            const containerRef = React.useRef(null);
+
+            React.useEffect(() => {
+                if (containerRef.current) {
+                    containerRef.current.innerHTML = '';
+                    new QRCode(containerRef.current, {
+                        text: pixCode,
+                        width: 280,
+                        height: 280,
+                        colorDark: '#000000',
+                        colorLight: '#ffffff',
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+                }
+            }, [pixCode]);
+
+            return (
+                <div className="flex justify-center mb-8">
+                    <div className="bg-white p-4 rounded-lg shadow-lg border-4 border-gray-300">
+                        <div ref={containerRef} className="flex justify-center items-center"></div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Função helper para ir para Passo 1 com scroll automático
+        const irParaPasso1 = (setPasso, setSelecionado, produto = null) => {
+            if (produto) setSelecionado(produto);
+            setPasso(1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        const PRODUTOS = [
+            {
+                id: 1,
+                nome: 'Camisa Seleção Amarela',
+                modelo: 'home',
+                preco: 149.90,
+                imagem: 'brazilian-national-team-yellow-jersey-front-view.jpg',
+                descricao: 'A camisa mais icônica',
+                subtitulo: 'Amarela e Verde',
+                badge: null
+            },
+            {
+                id: 2,
+                nome: 'Camisa Seleção Azul',
+                modelo: 'away',
+                preco: 189.90,
+                imagem: 'brazilian-national-team-blue-jersey-front-view.jpg',
+                descricao: 'Elegância pura',
+                subtitulo: 'Azul com Verde',
+                badge: null
+            },
+            {
+                id: 3,
+                nome: 'Camisa Seleção Feminina',
+                modelo: 'feminina',
+                preco: 149.90,
+                imagem: 'brazilian-national-team-yellow-women-jersey.jpg',
+                descricao: 'Poder feminino',
+                subtitulo: 'Edição Especial',
+                badge: null
+            }
+        ];
+
+        const TAMANHOS = ['P', 'M', 'G', 'GG', 'XG'];
+
+        function BrasilCamisasApp() {
+            const [passo, setPasso] = useState(0);
+            const [carrinho, setCarrinho] = useState([]);
+            const [selecionado, setSelecionado] = useState(null);
+            const [tamanho, setTamanho] = useState('M');
+            const [quantidade, setQuantidade] = useState(1);
+            const [checkout, setCheckout] = useState({
+                nome: '',
+                email: '',
+                endereco: '',
+                cidade: '',
+                cep: ''
+            });
+            const [metodoPagamento, setMetodoPagamento] = useState('');
+            const [pedidoConfirmado, setPedidoConfirmado] = useState(null);
+            const [carrinhoAberto, setCarrinhoAberto] = useState(false);
+            
+            // Estados do Modal
+            const [modal, setModal] = useState({
+                isOpen: false, 
+                tipo: 'info',
+                titulo: '',
+                mensagem: '',
+                botao: 'Fechar'
+            });
+
+            const showModal = (tipo, titulo, mensagem, botao = 'Fechar') => {
+                setModal({ isOpen: true, tipo, titulo, mensagem, botao });
+            };
+
+            const closeModal = () => {
+                setModal({ ...modal, isOpen: false });
+            };
+
+            const total = carrinho.reduce((acc, item) => acc + (item.preco * item.quantidade), 0);
+
+            // Componente SideDrawer
+            const SideDrawer = () => (
+                <>
+                    {/* Backdrop */}
+                    {carrinhoAberto && (
+                        <div 
+                            className="fixed inset-0 bg-black bg-opacity-50 z-40 drawer-backdrop"
+                            onClick={() => setCarrinhoAberto(false)}
+                        ></div>
+                    )}
+
+                    {/* Drawer */}
+                    <div className={`fixed top-0 right-0 h-full w-full sm:w-96 bg-white shadow-2xl z-50 transform transition-all duration-300 ${carrinhoAberto ? 'drawer-slide' : 'translate-x-full'}`}>
+                        <div className="p-4 md:p-6 h-full flex flex-col">
+                            {/* Header */}
+                            <div className="flex justify-between items-center mb-4 md:mb-6 pb-3 md:pb-4 border-b-2">
+                                <h2 className="text-lg md:text-2xl font-bold text-green-600">🛒 Carrinho</h2>
+                                <button 
+                                    onClick={() => setCarrinhoAberto(false)}
+                                    className="text-xl md:text-2xl hover:opacity-70 transition"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+
+                            {/* Itens */}
+                            {carrinho.length === 0 ? (
+                                <div className="flex-1 flex items-center justify-center text-center">
+                                    <div>
+                                        <p className="text-3xl md:text-4xl mb-3 md:mb-4">🛒</p>
+                                        <p className="text-gray-600 font-bold text-sm md:text-base">Carrinho vazio</p>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="flex-1 overflow-y-auto mb-4 md:mb-6 space-y-3 md:space-y-4 pr-2">
+                                    {carrinho.map((item, idx) => (
+                                        <div key={item.id} className="bg-gray-50 p-3 md:p-4 rounded-lg border border-gray-200">
+                                            <div className="flex justify-between items-start mb-2">
+                                                <div className="flex-1">
+                                                    <p className="font-bold text-sm md:text-lg">{item.nome}</p>
+                                                    <p className="text-xs md:text-sm text-gray-600">Tamanho: {item.tamanho}</p>
+                                                </div>
+                                                <button
+                                                    onClick={() => setCarrinho(carrinho.filter((_, i) => i !== idx))}
+                                                    className="text-red-500 hover:text-red-700 font-bold text-base md:text-lg ml-2"
+                                                >
+                                                    ✕
+                                                </button>
+                                            </div>
+                                            <div className="flex justify-between items-center">
+                                                <div className="flex items-center gap-2">
+                                                    <button onClick={() => {
+                                                        const novoCarrinho = [...carrinho];
+                                                        novoCarrinho[idx].quantidade = Math.max(1, novoCarrinho[idx].quantidade - 1);
+                                                        setCarrinho(novoCarrinho);
+                                                    }} className="text-sm px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded">−</button>
+                                                    <span className="text-sm font-bold">{item.quantidade}</span>
+                                                    <button onClick={() => {
+                                                        const novoCarrinho = [...carrinho];
+                                                        novoCarrinho[idx].quantidade += 1;
+                                                        setCarrinho(novoCarrinho);
+                                                    }} className="text-sm px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded">+</button>
+                                                </div>
+                                                <p className="font-bold text-green-600 text-sm md:text-base">R$ {(item.preco * item.quantidade).toFixed(2)}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+
+                            {carrinho.length > 0 && (
+                                <>
+                                    {/* Total */}
+                                    <div className="mb-4 md:mb-6 pb-4 md:pb-6 border-t-2 border-b-2">
+                                        <div className="flex justify-between font-bold text-base md:text-xl mb-2">
+                                            <span>Subtotal:</span>
+                                            <span>R$ {total.toFixed(2)}</span>
+                                        </div>
+                                        <div className="flex justify-between text-xs md:text-sm text-green-600 font-bold mb-3 md:mb-4">
+                                            <span>Frete:</span>
+                                            <span>Grátis!</span>
+                                        </div>
+                                        <div className="flex justify-between text-lg md:text-2xl font-bold text-green-600">
+                                            <span>Total:</span>
+                                            <span>R$ {total.toFixed(2)}</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Botões */}
+                                    <div className="space-y-2 md:space-y-3">
+                                        <button 
+                                            onClick={() => {
+                                                setCarrinhoAberto(false);
+                                                setPasso(3);
+                                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            }}
+                                            className="w-full btn-primary text-white py-2 md:py-3 rounded-lg font-bold text-xs md:text-lg"
+                                        >
+                                            Finalizar Compra
+                                        </button>
+                                        <button 
+                                            onClick={() => {
+                                                setCarrinhoAberto(false);
+                                                irParaPasso1(setPasso, setSelecionado);
+                                            }}
+                                            className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 md:py-3 rounded-lg font-bold transition text-xs md:text-base"
+                                        >
+                                            ← Continuar Comprando
+                                        </button>
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                </>
+            );
+
+            // Componente Modal removido - usando alerts do navegador
+
+            // PASSO 0: LANDING PAGE
+            if (passo === 0) {
+                return (
+                    <>
+                        <Modal 
+                            isOpen={modal.isOpen}
+                            tipo={modal.tipo}
+                            titulo={modal.titulo}
+                            mensagem={modal.mensagem}
+                            botao={modal.botao}
+                            onClose={closeModal}
+                        />
+                        <div className="bg-white min-h-screen">
+                        {/* Header */}
+                        <header className="sticky top-0 z-50 bg-white shadow-lg backdrop-blur-md bg-opacity-98 border-b-2 border-green-50">
+                            <div className="max-w-7xl mx-auto px-4 py-3 md:py-4 flex justify-between items-center">
+                                <div className="flex items-center gap-2 text-xl md:text-2xl font-bold">
+                                    <span className="shimmer-text text-xl md:text-2xl">Brasil Fan Store</span>
+                                </div>
+                                <button onClick={() => setPasso(2)} className="relative group">
+                                    <div className="text-2xl md:text-3xl group-hover:scale-125 transition-transform duration-300">🛒</div>
+                                    {carrinho.length > 0 && (
+                                        <span className="absolute -top-3 -right-3 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-full w-6 h-6 md:w-7 md:h-7 flex items-center justify-center text-xs font-bold shadow-lg">
+                                            {carrinho.length}
+                                        </span>
+                                    )}
+                                </button>
+                            </div>
+                        </header>
+
+                        {/* HERO */}
+                        <section className="py-16 md:py-24 flex items-center justify-center text-white relative hero-section overflow-hidden min-h-screen md:min-h-screen" style={{backgroundImage: 'url(camisa-brasil-hero-v3.jpg)', backgroundSize: 'cover', backgroundPosition: 'center right', backgroundAttachment: 'fixed'}}>
+                            {/* Overlay escuro para melhorar legibilidade do texto */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent z-5"></div>
+                            
+                            {/* Conteúdo com Layout Responsivo */}
+                            <div className="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-8">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                                    {/* Texto Esquerda */}
+                                    <div className="hero-content space-y-4 md:space-y-6 text-center md:text-left">
+                                        <div className="space-y-2 md:space-y-4 animate-in">
+                                            <p className="text-base md:text-xl font-light opacity-95 uppercase tracking-widest drop-shadow-md">Bem-vindo à</p>
+                                            <h1 className="text-4xl md:text-6xl font-black mb-0 drop-shadow-lg leading-tight">BRASIL FAN STORE</h1>
+                                            <div className="h-1 w-24 bg-white opacity-80 rounded-full drop-shadow-lg mx-auto md:mx-0"></div>
+                                        </div>
+                                        <p className="text-base md:text-xl font-light mb-6 md:mb-8 drop-shadow-md opacity-95 animate-in" style={{animationDelay: '0.2s'}}>
+                                            Veste o Brasil no peito. Cada camisa é uma história de paixão, tradição e glória.
+                                        </p>
+                                        <div className="space-y-3 md:space-y-0 md:space-x-4 flex flex-col md:flex-row animate-in" style={{animationDelay: '0.4s'}}>
+                                            <button onClick={() => irParaPasso1(setPasso, setSelecionado)} className="btn-primary text-sm md:text-lg px-8 md:px-12 py-3 md:py-4 inline-block">
+                                                ⚡ Explorar Coleção
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    {/* Espaço vazio para a imagem de background aparecer */}
+                                    <div className="hidden md:block"></div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* PRODUTOS */}
+                        <section className="py-16 md:py-28 px-4 bg-white">
+                            <div className="max-w-7xl mx-auto">
+                                <div className="mb-12 md:mb-20 text-center md:text-left">
+                                    <p className="text-sm md:text-base text-green-600 font-bold uppercase tracking-widest mb-3">✨ Coleção Exclusiva</p>
+                                    <h2 className="text-4xl md:text-5xl font-black mb-4">Nossos Modelos</h2>
+                                    <div className="accent-line"></div>
+                                    <p className="text-gray-600 text-base md:text-lg mt-6 max-w-2xl">Escolha a camisa perfeita para representar a Seleção com estilo, qualidade e autenticidade.</p>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                                    {PRODUTOS.map((prod, i) => (
+                                        <div key={prod.id} className="stagger card-premium relative group">
+                                            {prod.badge && <div className="product-badge">{prod.badge}</div>}
+                                            <div className="mb-6 overflow-hidden rounded-12">
+                                                <img 
+                                                    src={prod.imagem} 
+                                                    alt={prod.nome} 
+                                                    className="product-image mb-0 cursor-pointer hover:scale-105 transition-transform duration-300" 
+                                                    onClick={() => irParaPasso1(setPasso, setSelecionado, prod)}
+                                                />
+                                            </div>
+                                            <h3 className="text-2xl md:text-3xl font-black mb-2">{prod.nome}</h3>
+                                            <p className="text-green-600 text-sm md:text-base font-bold mb-1 uppercase tracking-wide">{prod.subtitulo}</p>
+                                            <p className="text-gray-500 text-xs md:text-sm mb-6">{prod.descricao}</p>
+                                            <div className="text-center mb-8 bg-gradient-to-br from-yellow-50 to-green-50 p-4 rounded-lg">
+                                                <div className="text-sm text-gray-600 mb-1">A partir de</div>
+                                                <div className="price-tag text-2xl md:text-3xl">R$ {prod.preco.toFixed(2)}</div>
+                                                <p className="text-xs text-gray-500 mt-2">ou em até 12x de R$ {(prod.preco/12).toFixed(2)} sem juros</p>
+                                            </div>
+                                            <button
+                                                onClick={() => irParaPasso1(setPasso, setSelecionado, prod)}
+                                                className="w-full btn-primary text-xs md:text-base opacity-0 group-hover:opacity-100 transition-all duration-300"
+                                            >
+                                                Ver Detalhes →
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* FEATURES */}
+                        <section className="py-16 md:py-24 px-4 bg-gradient-to-b from-gray-50 to-white">
+                            <div className="max-w-7xl mx-auto">
+                                <div className="text-center md:text-left mb-12 md:mb-16">
+                                    <p className="text-sm md:text-base text-green-600 font-bold uppercase tracking-widest mb-3">💚 Qualidade</p>
+                                    <h2 className="text-4xl md:text-5xl font-black mb-4">Por Que Escolher</h2>
+                                    <div className="accent-line"></div>
+                                </div>
+                                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                                    {[
+                                        { icon: '⚡', titulo: 'Premium', desc: '100% Poliéster de qualidade' },
+                                        { icon: '💨', titulo: 'Respirável', desc: 'Tecnologia Moisture-Wicking' },
+                                        { icon: '🏆', titulo: 'Durável', desc: 'Anti-desbotamento' },
+                                        { icon: '🌍', titulo: 'Oficial', desc: 'Certificado internacionalmente' }
+                                    ].map((feat, i) => (
+                                        <div key={i} className="stagger card-premium text-center hover:border-green-600 group">
+                                            <div className="text-5xl md:text-6xl mb-4 group-hover:scale-125 transition-transform duration-300">{feat.icon}</div>
+                                            <h3 className="text-lg md:text-xl font-bold mb-2 text-gray-900">{feat.titulo}</h3>
+                                            <p className="text-gray-600 text-xs md:text-sm leading-relaxed">{feat.desc}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* CTA FINAL */}
+                        <section className="gradient-brasil py-16 md:py-24 text-white text-center px-4 relative overflow-hidden">
+                            <div className="absolute inset-0 opacity-5">
+                                <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+                                <div className="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+                            </div>
+                            <div className="z-10 max-w-2xl mx-auto relative">
+                                <p className="text-sm md:text-base uppercase tracking-widest mb-3 opacity-90">⚽ Momento de Decisão</p>
+                                <h2 className="text-4xl md:text-5xl font-black mb-4 md:mb-6 leading-tight">Pronto para a Glória?</h2>
+                                <p className="text-base md:text-xl mb-8 md:mb-10 font-light opacity-95 max-w-lg mx-auto">Cada camisa é um compromisso com a seleção. Viste o Brasil e seja parte da história.</p>
+                                <button onClick={() => irParaPasso1(setPasso, setSelecionado)} className="bg-white text-green-700 px-8 md:px-12 py-3 md:py-4 rounded-lg text-base md:text-lg font-bold hover:bg-gray-50 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                                    🛒 Começar Compra
+                                </button>
+                            </div>
+                        </section>
+
+                        {/* Footer */}
+                        <footer className="bg-gradient-to-b from-gray-900 to-gray-950 text-gray-300 py-12 md:py-16 px-4 text-center md:text-left">
+                            <div className="max-w-7xl mx-auto">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-12 pb-12 border-b border-gray-700">
+                                    {/* Sobre */}
+                                    <div>
+                                        <h4 className="text-white font-bold text-lg mb-4">Brasil Fan Store</h4>
+                                        <p className="text-sm text-gray-400 leading-relaxed">A loja oficial da Seleção Brasileira com camisas premium, autênticas e certificadas internacionalmente.</p>
+                                    </div>
+                                    
+                                    {/* Links Rápidos */}
+                                    <div>
+                                        <h4 className="text-white font-bold text-lg mb-4">Menu Rápido</h4>
+                                        <ul className="space-y-2 text-sm">
+                                            <li><button onClick={() => setPasso(0)} className="hover:text-green-400 transition">Início</button></li>
+                                            <li><button onClick={() => irParaPasso1(setPasso, setSelecionado)} className="hover:text-green-400 transition">Produtos</button></li>
+                                            <li><a href="#" className="hover:text-green-400 transition">Fale Conosco</a></li>
+                                        </ul>
+                                    </div>
+                                    
+                                    {/* Contato */}
+                                    <div>
+                                        <h4 className="text-white font-bold text-lg mb-4">Suporte</h4>
+                                        <div className="space-y-3 text-sm">
+                                            <p>📧 contato@brasilfanstore.com.br</p>
+                                            <p>📱 (11) 9 8765-4321</p>
+                                            <p>💬 WhatsApp 24h</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Benefícios */}
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+                                    <div className="text-center">
+                                        <div className="text-2xl mb-2">🚚</div>
+                                        <p className="text-xs font-semibold text-gray-300">Frete Grátis</p>
+                                        <p className="text-xs text-gray-500">Acima de R$250</p>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-2xl mb-2">⚡</div>
+                                        <p className="text-xs font-semibold text-gray-300">Entrega Rápida</p>
+                                        <p className="text-xs text-gray-500">3-5 dias úteis</p>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-2xl mb-2">💳</div>
+                                        <p className="text-xs font-semibold text-gray-300">Até 12x</p>
+                                        <p className="text-xs text-gray-500">Sem juros</p>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-2xl mb-2">🔒</div>
+                                        <p className="text-xs font-semibold text-gray-300">100% Seguro</p>
+                                        <p className="text-xs text-gray-500">Compra protegida</p>
+                                    </div>
+                                </div>
+
+                                {/* Copyright */}
+                                <div className="border-t border-gray-700 pt-8 text-center">
+                                    <button 
+                                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                                        className="mb-6 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-bold transition"
+                                    >
+                                        ↑ Voltar ao Topo
+                                    </button>
+                                    <p className="mb-2 text-sm">© 2024 Brasil Fan Store - Loja Oficial da Seleção Brasileira</p>
+                                    <p className="text-xs text-gray-500">Feito com 💚 para torcedores brasileiros | Todos os direitos reservados</p>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                    </>
+                );
+            }
+
+            // PASSO 1: SELEÇÃO
+            if (passo === 1) {
+                const produto = selecionado || PRODUTOS[0];
+
+                return (
+                    <>
+                        <Modal 
+                            isOpen={modal.isOpen}
+                            tipo={modal.tipo}
+                            titulo={modal.titulo}
+                            mensagem={modal.mensagem}
+                            botao={modal.botao}
+                            onClose={closeModal}
+                        />
+                        <SideDrawer />
+                        <div className="bg-white min-h-screen">
+                        <header className="sticky top-0 z-50 bg-white shadow-lg border-b-2 border-green-50">
+                            <div className="max-w-7xl mx-auto px-4 py-3 md:py-4 flex justify-between items-center">
+                                <button onClick={() => { setPasso(0); setSelecionado(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="text-2xl hover:scale-110">←</button>
+                                <h1 className="text-xl font-bold">Passo 1 de 5: Selecione</h1>
+                                <button onClick={() => setPasso(2)} className="relative group">
+                                    <div className="text-2xl md:text-3xl group-hover:scale-125 transition-transform duration-300">🛒</div>
+                                    {carrinho.length > 0 && (
+                                        <span className="absolute -top-3 -right-3 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-full w-6 h-6 md:w-7 md:h-7 flex items-center justify-center text-xs font-bold shadow-lg">
+                                            {carrinho.length}
+                                        </span>
+                                    )}
+                                </button>
+                            </div>
+                        </header>
+
+                        <div className="max-w-6xl mx-auto px-4 py-8 md:py-12">
+
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 mb-8 md:mb-12">
+                                <div className="flex items-center justify-center">
+                                    <img src={produto.imagem} alt={produto.nome} className="product-image w-full max-w-xs md:max-w-md" />
+                                </div>
+
+                                <div className="space-y-6 md:space-y-8">
+                                    <div>
+                                        <h2 className="text-3xl md:text-5xl font-black mb-2">{produto.nome}</h2>
+                                        <div className="accent-line"></div>
+                                        <p className="text-lg md:text-2xl text-gray-600 mt-4">{produto.subtitulo}</p>
+                                    </div>
+
+                                    {/* Tamanho */}
+                                    <div>
+                                        <label className="block text-xs md:text-sm font-bold uppercase tracking-wider mb-3 md:mb-4">Tamanho</label>
+                                        <div className="flex gap-2 md:gap-3 flex-wrap">
+                                            {TAMANHOS.map(t => (
+                                                <button
+                                                    key={t}
+                                                    onClick={() => setTamanho(t)}
+                                                    className={`w-10 h-10 md:w-14 md:h-14 rounded-lg font-bold transition-all text-sm md:text-base ${
+                                                        tamanho === t
+                                                            ? 'bg-green-600 text-white shadow-lg scale-105'
+                                                            : 'bg-gray-100 hover:bg-gray-200'
+                                                    }`}
+                                                >
+                                                    {t}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Quantidade */}
+                                    <div>
+                                        <label className="block text-xs md:text-sm font-bold uppercase tracking-wider mb-3 md:mb-4">Quantidade</label>
+                                        <div className="flex items-center gap-4 md:gap-6">
+                                            <button
+                                                onClick={() => setQuantidade(Math.max(1, quantidade - 1))}
+                                                className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gray-100 hover:bg-gray-200 font-bold text-lg md:text-xl"
+                                            >
+                                                −
+                                            </button>
+                                            <span className="text-2xl md:text-4xl font-black">{quantidade}</span>
+                                            <button
+                                                onClick={() => setQuantidade(quantidade + 1)}
+                                                className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gray-100 hover:bg-gray-200 font-bold text-lg md:text-xl"
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Preço */}
+                                    <div className="bg-gradient-to-br from-yellow-50 to-green-50 p-6 md:p-8 rounded-lg border-2 border-green-200">
+                                        <p className="text-gray-600 mb-2 text-sm md:text-base">Valor Total</p>
+                                        <div className="price-tag text-2xl md:text-4xl">R$ {(produto.preco * quantidade).toFixed(2)}</div>
+                                    </div>
+
+                                    <button
+                                        onClick={() => {
+                                            setCarrinho([...carrinho, { ...produto, quantidade, tamanho, id: Date.now() }]);
+                                            setQuantidade(1);
+                                            setCarrinhoAberto(true);
+                                        }}
+                                        className="w-full btn-primary py-3 md:py-4 text-base md:text-lg"
+                                    >
+                                        🛒 Adicionar ao Carrinho
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Outros */}
+                            <div className="mt-8 md:mt-12">
+                                <h3 className="text-2xl md:text-3xl font-black mb-4 md:mb-6">Veja Também</h3>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                                    {PRODUTOS.filter(p => p.id !== produto.id).map(prod => (
+                                        <button
+                                            key={prod.id}
+                                            onClick={() => { setSelecionado(prod); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                                            className="card-premium text-center"
+                                        >
+                                            <img src={prod.imagem} alt={prod.nome} className="product-image mb-3 md:mb-4 w-full" />
+                                            <h4 className="text-lg md:text-2xl font-bold mb-2">{prod.nome}</h4>
+                                            <div className="price-tag text-lg md:text-xl">R$ {prod.preco.toFixed(2)}</div>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </>
+                );
+            }
+
+            // PASSO 2: CARRINHO
+            if (passo === 2) {
+                return (
+                    <>
+                        <Modal 
+                            isOpen={modal.isOpen}
+                            tipo={modal.tipo}
+                            titulo={modal.titulo}
+                            mensagem={modal.mensagem}
+                            botao={modal.botao}
+                            onClose={closeModal}
+                        />
+                        <div className="bg-white min-h-screen">
+                            <header className="sticky top-0 z-50 bg-white shadow-lg border-b-2 border-green-50">
+                            <div className="max-w-7xl mx-auto px-4 py-3 md:py-4 flex justify-between items-center">
+                                <button onClick={() => setPasso(1)} className="text-2xl">←</button>
+                                <h1 className="text-xl font-bold">Passo 2 de 5: Carrinho</h1>
+                                <button onClick={() => setPasso(2)} className="relative group">
+                                    <div className="text-2xl md:text-3xl group-hover:scale-125 transition-transform duration-300">🛒</div>
+                                    {carrinho.length > 0 && (
+                                        <span className="absolute -top-3 -right-3 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-full w-6 h-6 md:w-7 md:h-7 flex items-center justify-center text-xs font-bold shadow-lg">
+                                            {carrinho.length}
+                                        </span>
+                                    )}
+                                </button>
+                            </div>
+                        </header>
+
+                        <div className="max-w-4xl mx-auto px-4 py-12">
+
+                            {carrinho.length === 0 ? (
+                                <div className="text-center py-24">
+                                    <p className="text-6xl mb-4">🛒</p>
+                                    <p className="text-3xl font-bold text-gray-700 mb-8">Carrinho Vazio</p>
+                                    <button onClick={() => irParaPasso1(setPasso, setSelecionado)} className="btn-primary">
+                                        Continuar Comprando
+                                    </button>
+                                </div>
+                            ) : (
+                                <>
+                                    <div className="space-y-4 mb-8">
+                                        {carrinho.map((item, i) => (
+                                            <div key={item.id} className="card-premium flex items-center justify-between p-6">
+                                                <div className="flex items-center gap-6">
+                                                    <img src={item.imagem} alt={item.nome} className="w-20 h-20 object-cover rounded-lg" />
+                                                    <div>
+                                                        <h3 className="font-bold text-lg">{item.nome}</h3>
+                                                        <p className="text-gray-600">Tamanho {item.tamanho} • Qtd: {item.quantidade}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="text-right">
+                                                    <div className="price-tag">R$ {(item.preco * item.quantidade).toFixed(2)}</div>
+                                                    <button
+                                                        onClick={() => setCarrinho(carrinho.filter((_, idx) => idx !== i))}
+                                                        className="text-red-500 text-sm font-bold mt-2 hover:text-red-700"
+                                                    >
+                                                        Remover
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="card-premium p-8 mb-8">
+                                        <div className="flex justify-between items-center mb-4 pb-4 border-b-2">
+                                            <span className="font-bold">Subtotal:</span>
+                                            <span>R$ {total.toFixed(2)}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center text-2xl font-bold">
+                                            <span>Total:</span>
+                                            <span className="shimmer-text">R$ {total.toFixed(2)}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex gap-4">
+                                        <button onClick={() => irParaPasso1(setPasso, setSelecionado)} className="flex-1 btn-secondary">← Continuar</button>
+                                        <button onClick={() => { setPasso(3); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="flex-1 btn-primary">Checkout →</button>
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                        </div>
+                    </>
+                );
+            }
+
+            // PASSO 3: CHECKOUT
+            if (passo === 3) {
+                return (
+                    <>
+                        <Modal 
+                            isOpen={modal.isOpen}
+                            tipo={modal.tipo}
+                            titulo={modal.titulo}
+                            mensagem={modal.mensagem}
+                            botao={modal.botao}
+                            onClose={closeModal}
+                        />
+                        <div className="bg-white min-h-screen">
+                            <header className="sticky top-0 z-50 bg-white shadow-lg border-b-2 border-green-50">
+                                <div className="max-w-7xl mx-auto px-4 py-3 md:py-4 flex justify-between items-center">
+                                    <button onClick={() => setPasso(2)} className="text-2xl">←</button>
+                                    <h1 className="text-xl font-bold">Passo 3 de 5: Checkout</h1>
+                                    <button onClick={() => setPasso(2)} className="relative group">
+                                        <div className="text-2xl md:text-3xl group-hover:scale-125 transition-transform duration-300">🛒</div>
+                                        {carrinho.length > 0 && (
+                                            <span className="absolute -top-3 -right-3 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-full w-6 h-6 md:w-7 md:h-7 flex items-center justify-center text-xs font-bold shadow-lg">
+                                                {carrinho.length}
+                                            </span>
+                                        )}
+                                    </button>
+                                </div>
+                            </header>
+
+                            <div className="max-w-5xl mx-auto px-4 py-12">
+                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                    <div className="lg:col-span-2 space-y-8">
+                                        <div>
+                                            <h2 className="text-3xl font-black mb-4">Dados de Entrega</h2>
+                                            <div className="accent-line"></div>
+                                            <div className="space-y-4 mt-6">
+                                                <input type="text" placeholder="Nome Completo" value={checkout.nome} onChange={(e) => setCheckout({...checkout, nome: e.target.value})} className="input-premium" />
+                                                <input type="email" placeholder="Email" value={checkout.email} onChange={(e) => setCheckout({...checkout, email: e.target.value})} className="input-premium" />
+                                                <input type="text" placeholder="Endereço Completo" value={checkout.endereco} onChange={(e) => setCheckout({...checkout, endereco: e.target.value})} className="input-premium" />
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <input type="text" placeholder="Cidade" value={checkout.cidade} onChange={(e) => setCheckout({...checkout, cidade: e.target.value})} className="input-premium" />
+                                                    <input type="text" placeholder="CEP" value={checkout.cep} onChange={(e) => setCheckout({...checkout, cep: e.target.value})} className="input-premium" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <h2 className="text-3xl font-black mb-4">Pagamento</h2>
+                                            <div className="accent-line"></div>
+
+                                            <div className="card-premium h-fit p-6 mb-8">
+                                                <h3 className="font-black text-lg mb-6">Resumo</h3>
+                                                <div className="space-y-3 mb-6 pb-6 border-b-2">
+                                                    {carrinho.map((item) => (
+                                                        <div key={item.id} className="flex justify-between text-sm">
+                                                            <span>{item.nome} x{item.quantidade}</span>
+                                                            <span className="font-bold">R$ {(item.preco * item.quantidade).toFixed(2)}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                                <div className="flex justify-between text-lg font-bold text-green-600">
+                                                    <span>Total:</span>
+                                                    <span>R$ {total.toFixed(2)}</span>
+                                                </div>
+                                            </div>
+
+                                            <div className="space-y-3 mt-6">
+                                                {[
+                                                    { id: 'pix', icon: '✨', nome: 'PIX Instant', desc: 'Mais rápido' },
+                                                    { id: 'cartao', icon: '💳', nome: 'Cartão', desc: 'Até 12x' },
+                                                    { id: 'boleto', icon: '📋', nome: 'Boleto', desc: '3 dias' }
+                                                ].map(metodo => (
+                                                    <button
+                                                        key={metodo.id}
+                                                        onClick={() => setMetodoPagamento(metodo.id)}
+                                                        className={`w-full p-4 rounded-lg border-2 transition-all text-left ${
+                                                            metodoPagamento === metodo.id
+                                                                ? 'border-green-600 bg-green-50'
+                                                                : 'border-gray-300 hover:border-green-600'
+                                                        }`}
+                                                    >
+                                                        <div className="flex items-center justify-between">
+                                                            <div className="flex items-center gap-3">
+                                                                <span className="text-2xl">{metodo.icon}</span>
+                                                                <div>
+                                                                    <p className="font-bold">{metodo.nome}</p>
+                                                                    <p className="text-xs text-gray-600">{metodo.desc}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className={`w-5 h-5 rounded-full border-2 ${metodoPagamento === metodo.id ? 'bg-green-600 border-green-600' : 'border-gray-300'}`}></div>
+                                                        </div>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                    <button
+                                        onClick={() => {
+                                            if (!checkout.nome || !checkout.email || !checkout.endereco) {
+                                                showModal('error', 'Dados de Entrega Incompletos', 'Por favor, preencha todos os dados de entrega antes de continuar.', 'Entendi');
+                                                return;
+                                            }
+                                            if (!metodoPagamento) {
+                                                showModal('error', 'Forma de Pagamento Obrigatória', 'Escolha uma forma de pagamento para continuar com a compra.', 'Entendi');
+                                                return;
+                                            }
+                                            setPasso(4);
+                                        }}
+                                        className="w-full btn-primary py-4 text-lg"
+                                    >
+                                        Continuar para Pagar →
+                                    </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                );
+            }
+
+            // PASSO 4: PAGAMENTO
+            if (passo === 4) {
+                return (
+                    <>
+                        <Modal 
+                            isOpen={modal.isOpen}
+                            tipo={modal.tipo}
+                            titulo={modal.titulo}
+                            mensagem={modal.mensagem}
+                            botao={modal.botao}
+                            onClose={closeModal}
+                        />
+                        <div className="bg-white min-h-screen">
+                            <header className="sticky top-0 z-50 bg-white shadow-lg border-b-2 border-green-50">
+                                <div className="max-w-7xl mx-auto px-4 py-3 md:py-4 flex justify-between items-center">
+                                    <button onClick={() => setPasso(3)} className="text-2xl">←</button>
+                                    <h1 className="text-xl font-bold">Passo 4 de 5: Pagamento</h1>
+                                    <button onClick={() => setPasso(2)} className="relative group">
+                                        <div className="text-2xl md:text-3xl group-hover:scale-125 transition-transform duration-300">🛒</div>
+                                        {carrinho.length > 0 && (
+                                            <span className="absolute -top-3 -right-3 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-full w-6 h-6 md:w-7 md:h-7 flex items-center justify-center text-xs font-bold shadow-lg">
+                                                {carrinho.length}
+                                            </span>
+                                        )}
+                                    </button>
+                                </div>
+                            </header>
+
+                            <div className="max-w-2xl mx-auto px-4 py-12">
+                                {metodoPagamento === 'pix' ? (
+                                    <div className="card-premium text-center p-12 animate-scale">
+                                        <h2 className="text-4xl font-black mb-4">Código PIX</h2>
+                                        <p className="text-gray-600 mb-8">Escaneie com seu app bancário</p>
+                                        <QRCodeComponent pixCode={`00020126580014br.gov.bcb.pix0136${Math.random().toString(36).substr(2, 36)}52040000530398654061${total.toFixed(2)}5802BR5913Brasil Fan6009Sao Paulo62410503***63047D91`} />
+                                        <button onClick={() => { showModal('success', 'Copiado com Sucesso!', 'O código PIX foi copiado para sua área de transferência.', 'Ótimo!'); }} className="w-full btn-primary mb-4 py-4">Copiar Código PIX</button>
+                                        <button onClick={() => { setPedidoConfirmado({numero: Math.floor(100000 + Math.random() * 900000), data: new Date().toLocaleDateString('pt-BR'), nome: checkout.nome, email: checkout.email}); setPasso(5); }} className="w-full btn-primary py-4">✓ Confirmar Pagamento</button>
+                                    </div>
+                                ) : metodoPagamento === 'boleto' ? (
+                                    <div className="card-premium text-center p-12 animate-scale">
+                                        <h2 className="text-4xl font-black mb-4">Boleto Bancário</h2>
+                                        <p className="text-gray-600 mb-8">Copie o código de barras</p>
+                                        <div className="bg-gray-100 p-8 rounded-lg mb-8 font-mono text-sm break-all">34191.79001 01000000000 00000000 00000000</div>
+                                        <button onClick={() => { showModal('success', 'Copiado com Sucesso!', 'O código de barras foi copiado para sua área de transferência.', 'Ótimo!'); }} className="w-full btn-primary mb-4 py-4">Copiar Código de Barras</button>
+                                        <p className="text-xs text-gray-600 mb-4">Vencimento: {new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString('pt-BR')}</p>
+                                        <button onClick={() => { setPedidoConfirmado({numero: Math.floor(100000 + Math.random() * 900000), data: new Date().toLocaleDateString('pt-BR'), nome: checkout.nome, email: checkout.email}); setPasso(5); }} className="w-full btn-primary py-4">✓ Confirmar Pagamento</button>
+                                    </div>
+                                ) : (
+                                    <div className="card-premium p-8 animate-scale">
+                                        <h2 className="text-3xl font-black mb-6">Dados do Cartão</h2>
+                                        
+                                        {/* Parcelamento */}
+                                        <div className="mb-8">
+                                            <label className="block text-sm font-bold uppercase tracking-wider mb-4">Parcelamento</label>
+                                            <select className="input-premium">
+                                                <option value="1">1x de R$ {total.toFixed(2)} (à vista)</option>
+                                                <option value="2">2x de R$ {(total / 2).toFixed(2)}</option>
+                                                <option value="3">3x de R$ {(total / 3).toFixed(2)}</option>
+                                                <option value="4">4x de R$ {(total / 4).toFixed(2)}</option>
+                                                <option value="5">5x de R$ {(total / 5).toFixed(2)}</option>
+                                                <option value="6">6x de R$ {(total / 6).toFixed(2)}</option>
+                                                <option value="7">7x de R$ {(total / 7).toFixed(2)}</option>
+                                                <option value="8">8x de R$ {(total / 8).toFixed(2)}</option>
+                                                <option value="9">9x de R$ {(total / 9).toFixed(2)}</option>
+                                                <option value="10">10x de R$ {(total / 10).toFixed(2)}</option>
+                                                <option value="11">11x de R$ {(total / 11).toFixed(2)}</option>
+                                                <option value="12">12x de R$ {(total / 12).toFixed(2)}</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="space-y-4 mb-8">
+                                            <input type="text" placeholder="Número do Cartão" className="input-premium" />
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <input type="text" placeholder="MM/AA" className="input-premium" />
+                                                <input type="text" placeholder="CVV" className="input-premium" />
+                                            </div>
+                                        </div>
+                                        <button onClick={() => { setPedidoConfirmado({numero: Math.floor(100000 + Math.random() * 900000), data: new Date().toLocaleDateString('pt-BR'), nome: checkout.nome, email: checkout.email}); setPasso(5); }} className="w-full btn-primary py-4 text-lg">Confirmar Pagamento</button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </>
+                );
+            }
+
+            // PASSO 5: CONFIRMAÇÃO
+            if (passo === 5) {
+                return (
+                    <>
+                        <Modal 
+                            isOpen={modal.isOpen}
+                            tipo={modal.tipo}
+                            titulo={modal.titulo}
+                            mensagem={modal.mensagem}
+                            botao={modal.botao}
+                            onClose={closeModal}
+                        />
+                        <div className="gradient-brasil min-h-screen flex items-center justify-center px-4 py-4 md:py-8">
+                            <div className="max-w-sm md:max-w-md w-full card-premium p-6 md:p-8 text-center animate-scale">
+                                <div className="text-5xl md:text-6xl mb-4">✅</div>
+                                <h1 className="text-3xl md:text-4xl font-black text-green-700 mb-2">Pedido Confirmado!</h1>
+                                <p className="text-base md:text-lg font-light text-gray-600 mb-6">Obrigado! Você é um verdadeiro torcedor.</p>
+                                <div className="bg-green-50 border-2 border-green-600 rounded-lg p-4 md:p-6 mb-6">
+                                    <p className="text-sm text-gray-600 mb-1">Pedido #</p>
+                                    <p className="text-3xl md:text-4xl font-mono font-bold text-green-700">{pedidoConfirmado?.numero}</p>
+                                </div>
+                                <div className="text-left space-y-2 mb-6 pb-6 border-b-2 text-sm md:text-base">
+                                    <div className="flex justify-between font-bold"><span>Nome:</span><span className="text-right break-words">{pedidoConfirmado?.nome}</span></div>
+                                    <div className="flex justify-between font-bold"><span>Email:</span><span className="text-blue-600 text-right break-words text-xs md:text-sm">{pedidoConfirmado?.email}</span></div>
+                                    <div className="flex justify-between font-bold"><span>Total:</span><span className="price-tag">R$ {total.toFixed(2)}</span></div>
+                                </div>
+                                <button onClick={() => { setCarrinho([]); setSelecionado(null); setPasso(0); }} className="w-full btn-primary py-3 md:py-4 text-base md:text-lg">🏠 Voltar à Página Inicial</button>
+                            </div>
+                        </div>
+                    </>
+                );
+            }
+        }
+
+        ReactDOM.render(<BrasilCamisasApp />, document.getElementById('root'));
+    </script>
+</body>
+</html>

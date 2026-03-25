@@ -1,0 +1,504 @@
+{
+  "meta": {
+    "name": "Malu Store Design System",
+    "version": "1.1",
+    "description": "Nike Podium CDS structure and quality, adapted with Seleção Brasileira identity. Green replaces Nike Orange as the primary brand color. Yellow gold is the primary CTA. Royal blue (#003087) added as accent color — completing the full Seleção uniform palette (green jersey + yellow crest + blue short). Same spacing, motion, shadows, and component dimensions as Nike.",
+    "source_reference": "nike_design_system.json (Nike Podium CDS extracted 2026-03-05)",
+    "fonts_note": "Nike proprietary fonts (Futura ND, Helvetica Now) replaced with open-source equivalents: Barlow Condensed (display), Barlow Semi Condensed (title), Inter (body)"
+  },
+
+  "colors": {
+    "brand": {
+      "black":  "#111111",
+      "white":  "#FFFFFF",
+      "green":  "#007D48",
+      "yellow": "#FDC400",
+      "blue":   "#003087",
+      "_notes": {
+        "green":  "Primary brand color. Replaces Nike Orange (#FF5000). Maps to Nike green-600.",
+        "yellow": "Primary CTA color. Maps to Nike yellow-400. Used on all primary buttons.",
+        "blue":   "Accent color. Royal blue of the Seleção short and socks. Used for secondary accents, hover borders, and informational highlights — never as a dominant background. Completes the full Seleção uniform palette (green + yellow + blue)."
+      }
+    },
+
+    "greens": {
+      "green-900": "#003C2A",
+      "green-800": "#005034",
+      "green-700": "#00643E",
+      "green-600": "#007D48",
+      "green-500": "#1EAA52",
+      "green-400": "#3CCD49",
+      "green-300": "#5FE63F",
+      "green-200": "#83F13B",
+      "green-100": "#BDFB72",
+      "green-50":  "#DFFFB9",
+      "_usage": {
+        "green-900": "Hero backgrounds, darkest overlays",
+        "green-800": "Section backgrounds",
+        "green-600": "Primary interactive (selected state, active stepper, links)",
+        "green-500": "Success states, icons",
+        "green-400": "Completed stepper steps",
+        "green-50":  "Subtle green tints on hover"
+      }
+    },
+
+    "yellows": {
+      "yellow-500": "#FCA600",
+      "yellow-400": "#FDC400",
+      "yellow-300": "#FFD11B",
+      "yellow-200": "#FEDF35",
+      "yellow-100": "#FEEA55",
+      "yellow-50":  "#FEF087",
+      "_usage": {
+        "yellow-400": "Primary button background, badges, highlights",
+        "yellow-300": "Primary button hover state",
+        "yellow-500": "Pressed/active state on primary button"
+      }
+    },
+
+    "blues": {
+      "blue-900": "#001A4D",
+      "blue-800": "#002266",
+      "blue-700": "#002B7F",
+      "blue-600": "#003087",
+      "blue-500": "#0A3D9E",
+      "blue-400": "#1A52B8",
+      "blue-300": "#3D70CC",
+      "blue-200": "#6B99E0",
+      "blue-100": "#A8C4F0",
+      "blue-50":  "#D6E6FA",
+      "_source": "Centered on #003087 — the official royal blue of the CBF/Seleção Brasileira uniform (short and socks). Scale generated following the same Nike Podium CDS lightness curve used for greens and yellows.",
+      "_usage": {
+        "blue-600": "Primary accent — hover borders on secondary buttons, active tab indicators, informational icons",
+        "blue-700": "Pressed/active state on blue accents",
+        "blue-500": "Links within body text",
+        "blue-200": "Subtle blue tint backgrounds (informational callouts)",
+        "blue-50":  "Very subtle blue wash on hover over info elements",
+        "blue-900": "Dark blue text on light blue backgrounds only"
+      },
+      "_rules": {
+        "never_dominant": "Blue must never be the dominant background color of a full section or page. Green owns the hero. Yellow owns CTAs. Blue is accent only.",
+        "max_usage": "Use blue on at most 2-3 UI elements per page view.",
+        "good_uses": [
+          "Hover border on secondary button",
+          "Active indicator on tab/filter bar",
+          "Informational badge (e.g. 'Frete grátis acima de R$299')",
+          "Link color inside product description",
+          "Accent stripe or underline on section titles"
+        ],
+        "bad_uses": [
+          "Full hero background",
+          "Primary button background",
+          "Navigation bar background",
+          "Large card backgrounds"
+        ]
+      }
+    },
+
+    "grayscale": {
+      "grey-900": "#1F1F21",
+      "grey-800": "#28282A",
+      "grey-700": "#39393B",
+      "grey-600": "#4B4B4D",
+      "grey-500": "#707072",
+      "grey-400": "#9E9EA0",
+      "grey-300": "#CACACB",
+      "grey-200": "#E5E5E5",
+      "grey-100": "#F5F5F5",
+      "grey-50":  "#FAFAFA",
+      "_note": "Identical to Nike Podium CDS grayscale. Do not modify."
+    },
+
+    "feedback": {
+      "error":   "#EE0005",
+      "success": "#1EAA52",
+      "_note": "error = Nike red-500 (unchanged). success = green-500."
+    },
+
+    "scrims": {
+      "scrim-primary":         "rgba(17, 17, 17, 0.36)",
+      "scrim-primary-inverse": "rgba(17, 17, 17, 0.80)",
+      "_note": "Identical to Nike Podium CDS scrims."
+    }
+  },
+
+  "typography": {
+    "_philosophy": "Three-tier system mirroring Nike Podium CDS. Display for impact (heroes, headlines), Title for structure (product names, section heads), Body for readability (descriptions, labels, prices).",
+
+    "fontFamilies": {
+      "display": "'Barlow Condensed', Helvetica, Arial, sans-serif",
+      "title":   "'Barlow Semi Condensed', Helvetica, Arial, sans-serif",
+      "body":    "'Inter', Helvetica, Arial, sans-serif",
+      "_nike_equivalents": {
+        "display": "Nike Futura ND → Barlow Condensed (condensed, athletic, bold)",
+        "title":   "Helvetica Now Display Medium → Barlow Semi Condensed (structured, clean)",
+        "body":    "Helvetica Now Text → Inter (readable, neutral, modern)"
+      }
+    },
+
+    "semanticTokens": {
+      "display": {
+        "display1": "700 3rem/0.9 'Barlow Condensed', Helvetica, Arial, sans-serif",
+        "display2": "700 2.5rem/0.9 'Barlow Condensed', Helvetica, Arial, sans-serif",
+        "display3": "700 2rem/0.9 'Barlow Condensed', Helvetica, Arial, sans-serif",
+        "display4": "700 1.5rem/0.9 'Barlow Condensed', Helvetica, Arial, sans-serif"
+      },
+      "title": {
+        "title1": "500 2.5rem/1.2 'Barlow Semi Condensed', Helvetica, Arial, sans-serif",
+        "title2": "500 2rem/1.2 'Barlow Semi Condensed', Helvetica, Arial, sans-serif",
+        "title3": "500 1.5rem/1.2 'Barlow Semi Condensed', Helvetica, Arial, sans-serif",
+        "title4": "500 1.25rem/1.2 'Barlow Semi Condensed', Helvetica, Arial, sans-serif"
+      },
+      "body": {
+        "body1":        "400 1rem/1.5 'Inter', Helvetica, Arial, sans-serif",
+        "body1-strong": "500 1rem/1.5 'Inter', Helvetica, Arial, sans-serif",
+        "body2":        "400 0.875rem/1.5 'Inter', Helvetica, Arial, sans-serif",
+        "body2-strong": "500 0.875rem/1.5 'Inter', Helvetica, Arial, sans-serif",
+        "body3":        "400 0.75rem/1.5 'Inter', Helvetica, Arial, sans-serif",
+        "body3-strong": "500 0.75rem/1.5 'Inter', Helvetica, Arial, sans-serif"
+      }
+    },
+
+    "usage": {
+      "display1": "Hero headline on home page",
+      "display2": "Campaign section headlines",
+      "display3": "Category page titles",
+      "display4": "Sub-section headlines",
+      "title3":   "Product name on product page",
+      "title4":   "Product name on product card",
+      "body1":    "Product description",
+      "body2":    "Price, filter labels, form labels",
+      "body3":    "Badges, stock alerts, fine print"
+    }
+  },
+
+  "spacing": {
+    "_note": "Identical to Nike Podium CDS base spacing scale.",
+    "base": {
+      "space-1":  "4px",
+      "space-2":  "8px",
+      "space-3":  "12px",
+      "space-4":  "16px",
+      "space-6":  "24px",
+      "space-9":  "36px",
+      "space-12": "48px",
+      "space-15": "60px",
+      "space-21": "84px",
+      "space-30": "120px"
+    }
+  },
+
+  "breakpoints": {
+    "_note": "Identical to Nike Podium CDS. Mobile-first.",
+    "xs": "320px",
+    "s":  "600px",
+    "m":  "960px",
+    "l":  "1440px",
+    "xl": "1920px"
+  },
+
+  "components": {
+    "button": {
+      "_note": "Identical dimensions to Nike Podium CDS. Only colors differ.",
+      "borderRadius": "30px",
+      "borderWidth":  "1.5px",
+      "heightSmall":  "34px",
+      "heightMedium": "46px",
+      "heightLarge":  "58px",
+      "paddingSmall":  "6px 16px",
+      "paddingMedium": "12px 24px",
+      "paddingLarge":  "18px 24px",
+      "variants": {
+        "primary": {
+          "background":      "#FDC400",
+          "text":            "#111111",
+          "hover_bg":        "#FFD11B",
+          "active_bg":       "#FCA600",
+          "_note": "Yellow CTA — main purchase action. Compra, Adicionar ao Carrinho, Finalizar Pedido."
+        },
+        "secondary": {
+          "background":      "transparent",
+          "border":          "1.5px solid #111111",
+          "text":            "#111111",
+          "hover_bg":        "#111111",
+          "hover_text":      "#FFFFFF",
+          "_note": "Used for secondary actions: Ver mais, Calcular frete, Salvar endereço."
+        },
+        "inverse": {
+          "background":      "#FFFFFF",
+          "text":            "#111111",
+          "hover_bg":        "#F5F5F5",
+          "_note": "Used on dark/green backgrounds: hero sections, banners."
+        },
+        "destructive": {
+          "background":      "#EE0005",
+          "text":            "#FFFFFF",
+          "_note": "Used for irreversible actions: Remover produto, Cancelar pedido."
+        }
+      }
+    },
+
+    "badge": {
+      "background":   "#FDC400",
+      "text":         "#111111",
+      "borderRadius": "4px",
+      "font":         "body3-strong",
+      "_usage": "NOVO, LANÇAMENTO, PROMOÇÃO, ÚLTIMAS UNIDADES"
+    },
+
+    "productCard": {
+      "imageAspectRatio": "1:1",
+      "borderRadius":     "8px",
+      "nameFont":         "title4",
+      "priceFont":        "body2",
+      "gap":              "24px",
+      "gridDesktop":      "4 columns",
+      "gridMobile":       "2 columns",
+      "hover": {
+        "showButton": true,
+        "buttonVariant": "primary"
+      }
+    },
+
+    "priceTag": {
+      "originalPrice": {
+        "color":           "#9E9EA0",
+        "textDecoration":  "line-through",
+        "font":            "body2"
+      },
+      "currentPrice": {
+        "color":           "#007D48",
+        "fontWeight":      "700",
+        "font":            "body2-strong"
+      }
+    },
+
+    "sizeSelector": {
+      "buttonHeight":        "34px",
+      "borderRadius":        "30px",
+      "borderWidth":         "1.5px",
+      "defaultBorder":       "#CACACB",
+      "defaultText":         "#111111",
+      "selectedBackground":  "#007D48",
+      "selectedText":        "#FFFFFF",
+      "disabledOpacity":     "0.35",
+      "disabledDecoration":  "line-through"
+    },
+
+    "colorSelector": {
+      "circleSize":          "24px",
+      "selectedBorder":      "2px solid #007D48",
+      "selectedOffset":      "2px"
+    },
+
+    "heroBanner": {
+      "background":          "#003C2A",
+      "headlineFont":        "display1",
+      "headlineColor":       "#FFFFFF",
+      "ctaVariant":          "primary",
+      "minHeight":           "100vh",
+      "_note": "Full-screen green-900 hero. White headline. Yellow CTA pill. Brazilian football imagery."
+    },
+
+    "checkoutStepper": {
+      "steps":               4,
+      "activeColor":         "#007D48",
+      "completedColor":      "#3CCD49",
+      "inactiveColor":       "#CACACB",
+      "connectorHeight":     "2px"
+    },
+
+    "pixQRCode": {
+      "qrCodeSize":          "200px",
+      "countdownFont":       "title4",
+      "countdownColorOk":    "#007D48",
+      "countdownColorWarn":  "#FDC400",
+      "countdownColorExpired": "#EE0005",
+      "warnThreshold":       "5 minutes remaining"
+    },
+
+    "orderStatus": {
+      "layout":              "vertical timeline",
+      "iconSize":            "24px",
+      "activeColor":         "#007D48",
+      "completedColor":      "#3CCD49",
+      "pendingColor":        "#CACACB",
+      "states": [
+        "Aguardando Pagamento",
+        "Pago",
+        "Em Separação",
+        "Enviado",
+        "Entregue"
+      ],
+      "cancelledState": "Cancelado"
+    },
+
+    "freightCalculator": {
+      "inputHeight":         "56px",
+      "inputBorderRadius":   "4px",
+      "resultLayout":        "inline below input",
+      "_note": "Input height matches Nike form token (inputFieldHeight: 56px)."
+    },
+
+    "form": {
+      "inputHeight":         "56px",
+      "containerHeight":     "86px",
+      "borderRadius":        "4px",
+      "borderColor":         "#CACACB",
+      "focusBorderColor":    "#007D48",
+      "errorBorderColor":    "#EE0005",
+      "labelFont":           "body2-strong",
+      "inputFont":           "body1"
+    },
+
+    "icon": {
+      "small":  "16px",
+      "medium": "24px",
+      "large":  "48px"
+    }
+  },
+
+  "motion": {
+    "_note": "Identical to Nike Podium CDS. Do not modify.",
+    "easing": {
+      "functional": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "expressive": "cubic-bezier(0.6, 0, 0.1, 1)"
+    },
+    "durations": {
+      "150": "150ms",
+      "250": "250ms",
+      "300": "300ms",
+      "350": "350ms",
+      "400": "400ms"
+    },
+    "usage": {
+      "150ms": "Hover states, toggles",
+      "250ms": "Dropdowns, tooltips",
+      "300ms": "Page transitions, modals",
+      "400ms": "Expressive entrances (hero animations)"
+    }
+  },
+
+  "shadows": {
+    "_note": "Identical to Nike Podium CDS.",
+    "100":     "0px 4px 8px 0px rgba(17,17,17,0.06), 0px 0px 24px 4px rgba(17,17,17,0.03)",
+    "heavy":   "0px 4px 8px 0px rgba(17,17,17,0.18), 0px 0px 24px 4px rgba(17,17,17,0.09)",
+    "usage": {
+      "100":   "Product cards, dropdowns",
+      "heavy": "Modals, drawers, sticky header on scroll"
+    }
+  },
+
+  "borderRadius": {
+    "_note": "Identical to Nike Podium CDS.",
+    "sm":   "4px",
+    "md":   "8px",
+    "lg":   "12px",
+    "xl":   "24px",
+    "pill": "30px",
+    "usage": {
+      "sm":   "Badges, tags, form inputs",
+      "md":   "Product cards, image containers",
+      "lg":   "Modals, dialogs",
+      "xl":   "Drawers, bottom sheets",
+      "pill": "All buttons, size selectors"
+    }
+  },
+
+  "tailwind_config": {
+    "_file": "tailwind.config.ts",
+    "_note": "Drop-in Tailwind config for the Malu Store. Replace default theme.",
+    "config": {
+      "theme": {
+        "screens": {
+          "xs": "320px",
+          "sm": "600px",
+          "md": "960px",
+          "lg": "1440px",
+          "xl": "1920px"
+        },
+        "extend": {
+          "colors": {
+            "green": {
+              "900": "#003C2A",
+              "800": "#005034",
+              "700": "#00643E",
+              "600": "#007D48",
+              "500": "#1EAA52",
+              "400": "#3CCD49",
+              "300": "#5FE63F",
+              "200": "#83F13B",
+              "100": "#BDFB72",
+              "50":  "#DFFFB9"
+            },
+            "yellow": {
+              "500": "#FCA600",
+              "400": "#FDC400",
+              "300": "#FFD11B",
+              "200": "#FEDF35",
+              "100": "#FEEA55",
+              "50":  "#FEF087"
+            },
+            "grey": {
+              "900": "#1F1F21",
+              "800": "#28282A",
+              "700": "#39393B",
+              "600": "#4B4B4D",
+              "500": "#707072",
+              "400": "#9E9EA0",
+              "300": "#CACACB",
+              "200": "#E5E5E5",
+              "100": "#F5F5F5",
+              "50":  "#FAFAFA"
+            },
+            "blue": {
+              "900": "#001A4D",
+              "800": "#002266",
+              "700": "#002B7F",
+              "600": "#003087",
+              "500": "#0A3D9E",
+              "400": "#1A52B8",
+              "300": "#3D70CC",
+              "200": "#6B99E0",
+              "100": "#A8C4F0",
+              "50":  "#D6E6FA"
+            },
+            "brand": {
+              "black":  "#111111",
+              "white":  "#FFFFFF",
+              "green":  "#007D48",
+              "yellow": "#FDC400",
+              "blue":   "#003087"
+            }
+          },
+          "fontFamily": {
+            "display": ["Barlow Condensed", "Helvetica", "Arial", "sans-serif"],
+            "title":   ["Barlow Semi Condensed", "Helvetica", "Arial", "sans-serif"],
+            "body":    ["Inter", "Helvetica", "Arial", "sans-serif"]
+          },
+          "borderRadius": {
+            "sm":   "4px",
+            "md":   "8px",
+            "lg":   "12px",
+            "xl":   "24px",
+            "pill": "30px"
+          },
+          "boxShadow": {
+            "100":   "0px 4px 8px 0px rgba(17,17,17,0.06), 0px 0px 24px 4px rgba(17,17,17,0.03)",
+            "heavy": "0px 4px 8px 0px rgba(17,17,17,0.18), 0px 0px 24px 4px rgba(17,17,17,0.09)"
+          },
+          "transitionTimingFunction": {
+            "functional": "cubic-bezier(0.4, 0, 0.2, 1)",
+            "expressive": "cubic-bezier(0.6, 0, 0.1, 1)"
+          },
+          "height": {
+            "btn-sm": "34px",
+            "btn-md": "46px",
+            "btn-lg": "58px",
+            "input":  "56px"
+          }
+        }
+      }
+    }
+  }
+}
